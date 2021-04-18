@@ -42,13 +42,14 @@ namespace livox_ros {
 
 /** Lidar Data Distribute Control--------------------------------------------*/
 Lddc::Lddc(int format, int multi_topic, int data_src, int output_type,
-           double frq, std::string &frame_id)
+           double frq, std::string &frame_id, rclcpp::Clock::SharedPtr clock)
     : transfer_format_(format),
       use_multi_topic_(multi_topic),
       data_src_(data_src),
       output_type_(output_type),
       publish_frq_(frq),
-      frame_id_(frame_id) {
+      clock_(clock),
+      frame_id_(frame_id){
   publish_period_ns_ = kNsPerSecond / publish_frq_;
   lds_ = nullptr;
 #if 0
@@ -177,7 +178,7 @@ uint32_t Lddc::PublishPointcloud2(LidarDataQueue *queue, uint32_t packet_num,
     }
     /** Use the first packet timestamp as pointcloud2 msg timestamp */
     if (!published_packet) {
-      cloud.header.stamp = rclcpp::Time(timestamp);
+      cloud.header.stamp = clock_->now();
     }
     uint32_t single_point_num = storage_packet.point_num * echo_num;
 
@@ -315,7 +316,7 @@ uint32_t Lddc::PublishPointcloudData(LidarDataQueue *queue, uint32_t packet_num,
     ++published_packet;
     last_timestamp = timestamp;
   }
-
+  cloud.header.stamp = rclcpp::Time().seconds() / 1000.0;
   rclcpp::Publisher<PointCloud>::SharedPtr publisher =
       std::dynamic_pointer_cast<rclcpp::Publisher<PointCloud>>
       (GetCurrentPublisher(handle));

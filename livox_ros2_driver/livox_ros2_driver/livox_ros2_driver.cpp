@@ -113,7 +113,7 @@ LivoxDriver::LivoxDriver(const rclcpp::NodeOptions & node_options)
 
   /** Lidar data distribute control and lidar data source set */
   lddc_ptr_ =
-    std::make_unique<Lddc>(xfer_format, multi_topic, data_src, output_type, publish_freq, frame_id);
+    std::make_unique<Lddc>(xfer_format, multi_topic, data_src, output_type, publish_freq, frame_id, this->get_clock());
   lddc_ptr_->SetRosNode(this);
 
   int ret = 0;
