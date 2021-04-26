@@ -471,7 +471,7 @@ uint32_t Lddc::PublishImuData(LidarDataQueue *queue, uint32_t packet_num,
   uint32_t published_packet = 0;
 
   sensor_msgs::msg::Imu imu_data;
-  imu_data.header.frame_id = "livox_frame";
+  imu_data.header.frame_id = frame_id_;
 
   uint8_t data_source = lds_->lidars_[handle].data_src;
   StoragePacket storage_packet;
@@ -481,7 +481,7 @@ uint32_t Lddc::PublishImuData(LidarDataQueue *queue, uint32_t packet_num,
   timestamp = GetStoragePacketTimestamp(&storage_packet, data_source);
   if (timestamp) {
     imu_data.header.stamp =
-        rclcpp::Time(timestamp);  // to ros time stamp
+        clock_->now();// to ros time stamp
   }
 
   uint8_t point_buf[2048];
