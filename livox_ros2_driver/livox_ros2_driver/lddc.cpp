@@ -493,14 +493,14 @@ uint32_t Lddc::PublishImuData(LidarDataQueue *queue, uint32_t packet_num,
   imu_data.angular_velocity.y = imu->gyro_y;
   imu_data.angular_velocity.z = imu->gyro_z;
   imu_data.angular_velocity_covariance[0] = cov_imu;
-  imu_data.angular_velocity_covariance[5] = cov_imu;
+  imu_data.angular_velocity_covariance[4] = cov_imu;
   imu_data.angular_velocity_covariance[8] = cov_imu;
 
   imu_data.linear_acceleration.x = imu->acc_x;
   imu_data.linear_acceleration.y = imu->acc_y;
   imu_data.linear_acceleration.z = imu->acc_z;
   imu_data.linear_acceleration_covariance[0] = cov_imu;
-  imu_data.linear_acceleration_covariance[5] = cov_imu;
+  imu_data.linear_acceleration_covariance[4] = cov_imu;
   imu_data.linear_acceleration_covariance[8] = cov_imu;
 
 
