@@ -190,7 +190,7 @@ LivoxDriver::LivoxDriver(const rclcpp::NodeOptions & node_options)
   }
 
   poll_thread_ = std::make_shared<std::thread>(&LivoxDriver::pollThread, this);
-  poll_thread_imu = std::make_shared<std::thread>(&LivoxDriver::imuPollThred, this);
+  poll_thread_imu_ = std::make_shared<std::thread>(&LivoxDriver::imuPollThred, this);
 }
 
 LivoxDriver::~LivoxDriver()
@@ -208,6 +208,18 @@ void LivoxDriver::pollThread()
     status = future_.wait_for(std::chrono::seconds(0));
   } while (status == std::future_status::timeout);
 }
+
+void LivoxDriver::imuPollThread()
+{
+    std::future_status status;
+
+    do {
+        lddc_ptr_->DistributeImuData();
+        status = future_.wait_for(std::chrono::seconds(0));
+    } while (status == std::future_status::timeout);
+}
+
+
 }  // namespace livox_ros
 
 #include <rclcpp_components/register_node_macro.hpp>
