@@ -465,7 +465,7 @@ uint32_t Lddc::PublishCustomPointcloud(LidarDataQueue *queue,
   return published_packet;
 }
 
-uint32_t Lddc::PublishImuData(LidarDataQueue *queue, uint32_t packet_num,
+uint32_t Lddc::F(LidarDataQueue *queue, uint32_t packet_num,
                               uint8_t handle) {
   uint64_t timestamp = 0;
   uint32_t published_packet = 0;
@@ -579,7 +579,7 @@ void Lddc::DistributeLidarData(void) {
       continue;
     }
     PollingLidarPointCloudData(lidar_id, lidar);
-    PollingLidarImuData(lidar_id, lidar);
+    std::thread t1(PollingLidarPointCloudData, lidar_id, lidar);
   }
 
   if (lds_->IsRequestExit()) {
