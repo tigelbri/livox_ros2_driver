@@ -215,6 +215,7 @@ void LivoxDriver::imuPollThread()
 
     do {
         lddc_ptr_->DistributeImuData();
+        std::this_thread::sleep_for(200ms);
         status = future_.wait_for(std::chrono::seconds(0));
     } while (status == std::future_status::timeout);
 }
