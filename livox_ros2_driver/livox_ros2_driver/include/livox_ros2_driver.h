@@ -58,7 +58,6 @@ public:
 
 private:
   void pollThread();
-  void imuPollThread();
 
   std::unique_ptr<Lddc> lddc_ptr_;
   std::shared_ptr<std::thread> poll_thread_;
