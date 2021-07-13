@@ -578,7 +578,7 @@ void Lddc::DistributeLidarData(void) {
         (p_queue == nullptr)) {
       continue;
     }
-    PollingLidarPointCloudData(lidar_id, lidar);
+    // PollingLidarPointCloudData(lidar_id, lidar);
     PollingLidarImuData(lidar_id, lidar);
   }
 
