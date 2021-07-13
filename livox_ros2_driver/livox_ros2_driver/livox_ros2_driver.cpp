@@ -190,7 +190,7 @@ LivoxDriver::LivoxDriver(const rclcpp::NodeOptions & node_options)
   }
 
   poll_thread_ = std::make_shared<std::thread>(&LivoxDriver::pollThread, this);
-  poll_thread_imu_ = std::make_shared<std::thread>(&LivoxDriver::imuPollThread, this);
+  // poll_thread_imu_ = std::make_shared<std::thread>(&LivoxDriver::imuPollThread, this);
 }
 
 LivoxDriver::~LivoxDriver()
@@ -216,7 +216,7 @@ void LivoxDriver::imuPollThread()
 
     do {
         lddc_ptr_->DistributeImuData();
-        std::this_thread::sleep_for(50ms);
+        std::this_thread::sleep_for(500ms);
         status = future_.wait_for(std::chrono::seconds(0));
     } while (status == std::future_status::timeout);
 }
