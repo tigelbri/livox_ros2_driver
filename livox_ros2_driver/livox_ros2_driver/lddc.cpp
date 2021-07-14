@@ -540,7 +540,7 @@ void Lddc::PollingLidarPointCloudData(uint8_t handle, LidarDevice *lidar) {
 
   while (!QueueIsEmpty(p_queue)) {
     uint32_t used_size = QueueUsedSize(p_queue);
-    // uint32_t onetime_publish_packets = lidar->onetime_publish_packets;
+    uint32_t onetime_publish_packets = lidar->onetime_publish_packets;
     if (used_size < onetime_publish_packets) {
       break;
     }
