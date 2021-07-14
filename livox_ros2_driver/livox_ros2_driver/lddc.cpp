@@ -540,11 +540,12 @@ void Lddc::PollingLidarPointCloudData(uint8_t handle, LidarDevice *lidar) {
 
   while (!QueueIsEmpty(p_queue)) {
     uint32_t used_size = QueueUsedSize(p_queue);
-    uint32_t onetime_publish_packets = lidar->onetime_publish_packets;
+    // uint32_t onetime_publish_packets = lidar->onetime_publish_packets;
     if (used_size < onetime_publish_packets) {
       break;
     }
 
+    /*
     if (kPointCloud2Msg == transfer_format_) {
       PublishPointcloud2(p_queue, onetime_publish_packets, handle);
     } else if (kLivoxCustomMsg == transfer_format_) {
@@ -552,6 +553,7 @@ void Lddc::PollingLidarPointCloudData(uint8_t handle, LidarDevice *lidar) {
     } else if (kPclPxyziMsg == transfer_format_) {
       PublishPointcloudData(p_queue, onetime_publish_packets, handle);
     }
+    */
   }
 }
 
@@ -561,8 +563,7 @@ void Lddc::PollingLidarImuData(uint8_t handle, LidarDevice *lidar) {
     return;
   }
   while (!QueueIsEmpty(p_queue)) {
-      auto c = PublishImuData(p_queue, 1, handle);
-      std::cout << "publishing from queue: " << c << std::endl;
+      PublishImuData(p_queue, 1, handle);
   }
 }
 
@@ -579,7 +580,7 @@ void Lddc::DistributeLidarData(void) {
         (p_queue == nullptr)) {
       continue;
     }
-    // PollingLidarPointCloudData(lidar_id, lidar);
+    PollingLidarPointCloudData(lidar_id, lidar);
     PollingLidarImuData(lidar_id, lidar);
   }
 
