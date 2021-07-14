@@ -561,7 +561,8 @@ void Lddc::PollingLidarImuData(uint8_t handle, LidarDevice *lidar) {
     return;
   }
   while (!QueueIsEmpty(p_queue)) {
-    PublishImuData(p_queue, 1, handle);
+      std::cout << "publishing from queue" << std::endl;
+      PublishImuData(p_queue, 1, handle);
   }
 }
 
