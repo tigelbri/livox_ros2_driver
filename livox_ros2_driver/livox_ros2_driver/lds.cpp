@@ -550,7 +550,7 @@ static void PointCloudConvert(LivoxPoint *p_dpoint, LivoxRawPoint *p_raw_point) 
 
 /* Member function --------------------------------------------------------- */
 Lds::Lds(uint32_t buffer_time_ms, uint8_t data_src) : \
-    lidar_count_(kMaxSourceLidar), semaphore_(0), semaphore_imu_(0) \
+    lidar_count_(kMaxSourceLidar), semaphore_(0), semaphore_imu_(0), \
     buffer_time_ms_(buffer_time_ms), data_src_(data_src), request_exit_(false) {
     ResetLds(data_src_);
 }
