@@ -547,7 +547,9 @@ void Lddc::PollingLidarPointCloudData(uint8_t handle, LidarDevice *lidar) {
     if (used_size < onetime_publish_packets) {
       break;
     }
+    QueuePopUpdate(p_queue);
 
+    /*
     if (kPointCloud2Msg == transfer_format_) {
       PublishPointcloud2(p_queue, onetime_publish_packets, handle);
     } else if (kLivoxCustomMsg == transfer_format_) {
@@ -555,7 +557,7 @@ void Lddc::PollingLidarPointCloudData(uint8_t handle, LidarDevice *lidar) {
     } else if (kPclPxyziMsg == transfer_format_) {
       PublishPointcloudData(p_queue, onetime_publish_packets, handle);
     }
-
+    */
   }
 }
 
@@ -583,7 +585,7 @@ void Lddc::DistributeLidarData(void) {
       continue;
     }
       PollingLidarImuData(lidar_id, lidar);
-      //PollingLidarPointCloudData(lidar_id, lidar);
+      PollingLidarPointCloudData(lidar_id, lidar);
   }
 
   if (lds_->IsRequestExit()) {
