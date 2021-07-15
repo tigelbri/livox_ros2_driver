@@ -53,7 +53,6 @@ class LivoxDriver: public rclcpp::Node
 public:
 
   explicit LivoxDriver(const rclcpp::NodeOptions & options);
-
   ~LivoxDriver();
 
 private:

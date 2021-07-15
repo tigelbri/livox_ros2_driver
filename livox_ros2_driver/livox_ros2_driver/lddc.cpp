@@ -505,6 +505,9 @@ uint32_t Lddc::PublishImuData(LidarDataQueue *queue, uint32_t packet_num,
 
 
   QueuePopUpdate(queue);
+  if (QueueIsEmpty(queue)) {
+      std::cout << "queue is empty" << std::endl;
+  }
   ++published_packet;
 
   rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr publisher =
