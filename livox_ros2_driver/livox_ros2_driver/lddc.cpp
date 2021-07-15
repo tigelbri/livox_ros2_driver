@@ -583,7 +583,7 @@ void Lddc::DistributeLidarData(void) {
       continue;
     }
       PollingLidarImuData(lidar_id, lidar);
-      PollingLidarPointCloudData(lidar_id, lidar);
+      //PollingLidarPointCloudData(lidar_id, lidar);
   }
 
   if (lds_->IsRequestExit()) {
