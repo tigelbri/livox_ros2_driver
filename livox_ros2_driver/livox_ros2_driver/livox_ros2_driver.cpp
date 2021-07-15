@@ -190,7 +190,7 @@ LivoxDriver::LivoxDriver(const rclcpp::NodeOptions & node_options)
   }
 
   poll_thread_ = std::make_shared<std::thread>(&LivoxDriver::pollThread, this);
-  poll_thread_ = std::make_shared<std::thread>(&LivoxDriver::imuPollThread, this);
+  imu_poll_thread_ = std::make_shared<std::thread>(&LivoxDriver::imuPollThread, this);
 }
 
 LivoxDriver::~LivoxDriver()
