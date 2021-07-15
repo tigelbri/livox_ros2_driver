@@ -679,10 +679,6 @@ void Lds::StorageRawPacket(uint8_t handle, LivoxEthPacket* eth_packet) {
         if (semaphore_.GetCount() <= 0) {
           semaphore_.Signal();
         }
-        // TODO ist das hier die richtige Queue?
-        if (semaphore_imu_.GetCount() <= 0) {
-            semaphore_imu_.Signal();
-        }
       }
     }
   } else {
@@ -710,6 +706,9 @@ void Lds::StorageRawPacket(uint8_t handle, LivoxEthPacket* eth_packet) {
           GetEthPacketLen(eth_packet->data_type),
           packet_statistic->imu_timebase,
           GetPointsPerPacket(eth_packet->data_type));
+    }
+    if (semaphore_imu_.GetCount() <= 0) {
+          semaphore_imu_.Signal();
     }
   }
 }
