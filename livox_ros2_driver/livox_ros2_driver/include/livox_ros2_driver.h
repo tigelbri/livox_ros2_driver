@@ -61,8 +61,10 @@ private:
 
   std::unique_ptr<Lddc> lddc_ptr_;
   std::shared_ptr<std::thread> poll_thread_;
+    std::shared_ptr<std::thread> imu_poll_thread_;
   std::shared_future<void> future_;
   std::promise<void> exit_signal_;
+  std::promise<void> exit_signal_imu;
 };
 
 }  // namespace livox_ros

@@ -584,13 +584,33 @@ void Lddc::DistributeLidarData(void) {
         (p_queue == nullptr)) {
       continue;
     }
-      PollingLidarImuData(lidar_id, lidar);
       PollingLidarPointCloudData(lidar_id, lidar);
   }
 
   if (lds_->IsRequestExit()) {
     PrepareExit();
   }
+}
+
+void Lddc::DistributeImuData(void) {
+    if (lds_ == nullptr) {
+        return;
+    }
+    lds_->semaphore_imu_.Wait();
+    for (uint32_t i = 0; i < lds_->lidar_count_; i++) {
+        uint32_t lidar_id = i;
+        LidarDevice *lidar = &lds_->lidars_[lidar_id];
+        LidarDataQueue *p_queue = &lidar->data;
+        if ((kConnectStateSampling != lidar->connect_state) ||
+            (p_queue == nullptr)) {
+            continue;
+        }
+        PollingLidarImuData(lidar_id, lidar);
+    }
+
+    if (lds_->IsRequestExit()) {
+        PrepareExit();
+    }
 }
 
 
